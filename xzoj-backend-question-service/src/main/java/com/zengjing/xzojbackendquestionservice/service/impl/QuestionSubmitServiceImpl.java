@@ -87,7 +87,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 //            judgeFeignClient.doJudge(questionSubmitId);
 //        });
         //发送消息给rabbitmq
-        myMessageProducer.sendMessage("code_exchange","my_routingKey",String.valueOf(questionSubmitId));
+        myMessageProducer.sendMessage("code_exchagne","my_routingKey",String.valueOf(questionSubmitId));
         return questionSubmitId;
     }
 

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @author https://github.com/lizj
  */
 @Configuration
-@MapperScan("com.zengjing.xzojbackendquestionservice")
+@MapperScan("com.zengjing.xzojbackendquestionservice.mapper")
 public class MyBatisPlusConfig {
 
     /**
