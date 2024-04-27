@@ -1,4 +1,4 @@
-package com.zengjing.xzojbackendjudgeservice;
+package com.zengjing.xzojbackendjudgeservice.rabbitmq;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;

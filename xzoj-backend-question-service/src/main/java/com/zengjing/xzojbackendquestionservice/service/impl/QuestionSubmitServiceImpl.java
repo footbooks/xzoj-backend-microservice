@@ -11,6 +11,7 @@ import com.zengjing.xzojbackendmodel.model.enums.QuestionSubmitLanguageEnum;
 import com.zengjing.xzojbackendmodel.model.enums.QuestionSubmitStatusEnum;
 import com.zengjing.xzojbackendmodel.model.vo.QuestionSubmitVO;
 import com.zengjing.xzojbackendquestionservice.mapper.QuestionSubmitMapper;
+import com.zengjing.xzojbackendquestionservice.rabbitmq.MyMessageProducer;
 import com.zengjing.xzojbackendquestionservice.service.QuestionService;
 import com.zengjing.xzojbackendquestionservice.service.QuestionSubmitService;
 import com.zengjing.xzojbackendcommon.common.ErrorCode;
@@ -49,6 +50,8 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     @Resource
     @Lazy
     private JudgeFeignClient judgeFeignClient;
+    @Resource
+    private MyMessageProducer myMessageProducer;
     /**
      * 提交题目
      */
@@ -79,9 +82,12 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
             throw new BusinessException(ErrorCode.SYSTEM_ERROR,"提交题目失败");
         }
         Long questionSubmitId = questionSubmit.getId();
-        CompletableFuture.runAsync(()->{
-            judgeFeignClient.doJudge(questionSubmitId);
-        });
+//        CompletableFuture.runAsync(()->{
+//
+//            judgeFeignClient.doJudge(questionSubmitId);
+//        });
+        //发送消息给rabbitmq
+        myMessageProducer.sendMessage("code_exchange","my_routingKey",String.valueOf(questionSubmitId));
         return questionSubmitId;
     }
 
