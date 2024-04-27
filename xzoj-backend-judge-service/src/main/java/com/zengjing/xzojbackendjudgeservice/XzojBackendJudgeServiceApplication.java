@@ -15,8 +15,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = "com.zengjing.xzojbackendserviceclient.service")
 public class XzojBackendJudgeServiceApplication {
-
     public static void main(String[] args) {
+        InitRabbitMq.doInit();
         SpringApplication.run(XzojBackendJudgeServiceApplication.class, args);
     }
 
