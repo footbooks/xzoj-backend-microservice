@@ -64,11 +64,13 @@ public class JudgeServiceImpl implements JudgeService {
         List<String> inputList = judgeCaseList.stream().map(JudgeCase::getInput).collect(Collectors.toList());
         String language = questionSubmit.getLanguage();
         String code = questionSubmit.getCode();
+        //使用建造者模式构建一个调用代码沙箱的请求对象
         ExecuteCodeRequest executeCodeRequest = ExecuteCodeRequest.builder()
                 .code(code)
                 .language(language)
                 .inputList(inputList)
                 .build();
+        //调用代码沙箱
         ExecuteCodeResponse executeCodeResponse = codeSandboxProxy.executeCode(executeCodeRequest);
         List<String> outputList = executeCodeResponse.getOutputList();
         //4.根据执行结果，获取判断结果
